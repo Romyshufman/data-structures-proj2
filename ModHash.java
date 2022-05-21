@@ -23,7 +23,7 @@ public class ModHash {
 	}
 	
 	public int Hash(long key) {
-		int result = (int) (((a*key+b)%p)%m);
+		int result = (int) ((((a*key+b)%p)%m)+m)%m;
 		return result;
 	}
 }
