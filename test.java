@@ -4,7 +4,7 @@ import java.util.Random;
 public class test {
 
     public static void main (String[] args) {
-        q3_2();
+        q4_1();
     }
 
     public static void q3_1(){
@@ -59,5 +59,57 @@ public class test {
                 }
             }
         }
+    }
+
+    public static void q4_1_inner(IHashTable ht){
+        Random rand= new Random();
+        for(int i=0; i<5000009; i++){
+            int b = rand.nextInt(100);
+            int a= 100*i+b;
+            try {
+                ht.Insert(new HashTableElement(a,i));
+            }
+            catch (IHashTable.TableIsFullException e) {
+                e.printStackTrace();
+            } catch (IHashTable.KeyAlreadyExistsException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
+
+
+    }
+
+    public static void q4_1(){
+        IHashTable ht= new LPHashTable(10000019,1000000007);
+        long startTime = System.nanoTime();
+        q4_1_inner(ht);
+        long endTime= System.nanoTime();
+        double totalTime= (endTime-startTime)*Math.pow(10,-9);
+        System.out.println("LP "+ totalTime);
+
+        ht= new QPHashTable(10000019,1000000007);
+        startTime = System.nanoTime();
+        q4_1_inner(ht);
+        endTime= System.nanoTime();
+        totalTime= (endTime-startTime)*Math.pow(10,-9);
+        System.out.println("QP "+ totalTime);
+
+        ht= new AQPHashTable(10000019,1000000007);
+        startTime = System.nanoTime();
+        q4_1_inner(ht);
+        endTime= System.nanoTime();
+        totalTime= (endTime-startTime)*Math.pow(10,-9);
+        System.out.println("AQP "+ totalTime);
+
+        ht= new DoubleHashTable(10000019,1000000007);
+        startTime = System.nanoTime();
+        q4_1_inner(ht);
+        endTime= System.nanoTime();
+        totalTime= (endTime-startTime)*Math.pow(10,-9);
+        System.out.println("DOUBLE "+ totalTime);
+
     }
 }
