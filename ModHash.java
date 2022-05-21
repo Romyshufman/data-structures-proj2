@@ -23,7 +23,6 @@ public class ModHash {
 	}
 	
 	public int Hash(long key) {
-		// TODO implement hash function
 		int result = (int) (((a*key+b)%p)%m);
 		return result;
 	}
