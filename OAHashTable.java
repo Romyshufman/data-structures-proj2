@@ -11,7 +11,19 @@ public abstract class OAHashTable implements IHashTable {
 	
 	@Override
 	public HashTableElement Find(long key) {
-		// TODO implement find
+		int i=0;
+		while(i<table.length){
+			int index= Hash(key, i);
+			if (table[index] == null){
+				return null;
+			}
+			else if (table[index].GetKey()==key) {
+				return table[index];
+			}
+			else{
+				i++;
+			}
+		}
 		return null;
 	}
 	
