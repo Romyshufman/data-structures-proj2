@@ -11,20 +11,28 @@ public abstract class OAHashTable implements IHashTable {
 	
 	@Override
 	public HashTableElement Find(long key) {
+		int result = Find_index(key);
+		if (result == -1) {
+			return null;
+		}
+		return table[result];
+	}
+
+	public int Find_index(long key) {
 		int i=0;
 		while(i<table.length){
 			int index= Hash(key, i);
 			if (table[index] == null){
-				return null;
+				return -1;
 			}
 			else if (table[index].GetKey()==key) {
-				return table[index];
+				return index;
 			}
 			else{
 				i++;
 			}
 		}
-		return null;
+		return -1;
 	}
 	
 	@Override
@@ -50,7 +58,11 @@ public abstract class OAHashTable implements IHashTable {
 	
 	@Override
 	public void Delete(long key) throws KeyDoesntExistException {
-		// TODO implement deletion
+		int index = Find_index(key);
+		if (key == -1){
+			throw new KeyDoesntExistException(key);
+		}
+		table[index] = new HashTableElement(-1, -1);
 	}
 	
 	/**
