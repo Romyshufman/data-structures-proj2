@@ -25,7 +25,7 @@ public abstract class OAHashTable implements IHashTable {
 			boolean inPlace = false;
 			while(i<table.length && ! inPlace){
 				int index = Hash(hte.GetKey(), i);
-				if (table[index] == null) {
+				if (table[index] == null  || table[index].GetKey()<0) {
 					table[index] = hte;
 					inPlace = true;
 				}
