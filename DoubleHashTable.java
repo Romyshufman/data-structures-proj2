@@ -19,5 +19,4 @@ public class DoubleHashTable extends OAHashTable {
 		int result  = (int) ((modHash1.Hash(x)+i*modHash2.Hash(x))%m);
 		return (int) ((result+m)%m);
 	}
-	
 }

@@ -49,6 +49,7 @@ public abstract class OAHashTable implements IHashTable {
 					table[index] = hte;
 					inPlace = true;
 				}
+				i++;
 			}
 			if (i==table.length && !inPlace){
 				throw new TableIsFullException(hte);
