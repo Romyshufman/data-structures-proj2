@@ -23,7 +23,18 @@ public class ModHash {
 	}
 	
 	public int Hash(long key) {
-		int result = (int) ((((a*key+b)%p)%m)+m)%m;
+		int result = (int) (((a*key+b)%p)%m);
+		if (result<0){
+			result=result+m;
+		}
 		return result;
+	}
+	public int secHash(long key) {
+		int result = (int) ((a*key+b)%p)%(m-1)+1;
+		if (result<0){
+			result=result+m;
+		}
+		return result;
+
 	}
 }
