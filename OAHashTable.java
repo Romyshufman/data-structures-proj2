@@ -21,8 +21,8 @@ public abstract class OAHashTable implements IHashTable {
 	public int Find_index(long key) {
 		int i=0;
 		while(i<table.length){
-			int index= Hash(key, i);
-			if (table[index] == null){
+			int index = Hash(key, i);
+			if (table[index]==(null)){
 				return -1;
 			}
 			else if (table[index].GetKey()==key) {
