@@ -5,10 +5,8 @@ public abstract class OAHashTable implements IHashTable {
 	
 	public OAHashTable(int m) {
 		this.table = new HashTableElement[m];
-		// TODO add to constructor as needed
 	}
-	
-	
+
 	@Override
 	public HashTableElement Find(long key) {
 		int result = Find_index(key);
@@ -38,7 +36,7 @@ public abstract class OAHashTable implements IHashTable {
 	@Override
 	public void Insert(HashTableElement hte) throws TableIsFullException,KeyAlreadyExistsException {
 		if (this.Find(hte.GetKey()) != null){
-			throw  new KeyAlreadyExistsException(hte);
+			throw new KeyAlreadyExistsException(hte);
 		}
 		else {
 			int i = 0;

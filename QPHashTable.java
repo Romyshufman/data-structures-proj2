@@ -12,6 +12,9 @@ public class QPHashTable extends OAHashTable {
 	
 	@Override
 	public int Hash(long x, int i) {
-		return (int) (((this.modHash.Hash(x)+Math.pow(i,2))%m)+m)%m;
+		int result= (int) ((this.modHash.Hash(x)+Math.pow(i,2))%m);
+		if (result<0)
+			result+=m;
+		return result;
 	}
 }
