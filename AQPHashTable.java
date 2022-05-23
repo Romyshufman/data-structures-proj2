@@ -2,12 +2,10 @@ import java.util.Random;
 
 public class AQPHashTable extends OAHashTable {
 	private ModHash modHash;
-	private int m;
 
 	public AQPHashTable(int m, long p) {
 		super(m);
 		this.modHash = ModHash.GetFunc(m,p);
-		this.m = m;
 	}
 	
 	@Override

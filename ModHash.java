@@ -5,14 +5,14 @@ public class ModHash {
 
 	private long a;
 	private long b;
-	private int m;
 	private long p;
+	private int m;
 
 	public ModHash(long a, long b, int m, long p){
 		this.a = a;
 		this.b = b;
 		this.p = p;
-		this.m = m;
+		this.m=m;
 	}
 	
 	public static ModHash GetFunc(int m, long p){
@@ -23,14 +23,14 @@ public class ModHash {
 	}
 	
 	public int Hash(long key) {
-		int result = (int) (((a*key+b)%p)%m);
+		long result = ((a*key+b)%p)%m;
 		if (result<0){
 			result=result+m;
 		}
-		return result;
+		return (int)result;
 	}
 	public int secHash(long key) {
-		int result = (int) ((a*key+b)%p)%(m-1)+1;
+		int result = (int) (((a*key+b)%p)%(m-1)+1);
 		if (result<0){
 			result=result+m;
 		}
