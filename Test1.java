@@ -121,7 +121,6 @@ public class Test1 {
                     ht.Delete(key);
                 } catch (Exception e) {
                     e1 = e.getClass().getName();
-                    System.out.println("***e1***"+e1);
                 }
                 try {
                     rht.Delete(key);

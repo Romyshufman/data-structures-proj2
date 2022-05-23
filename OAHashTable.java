@@ -60,10 +60,11 @@ public abstract class OAHashTable implements IHashTable {
 	@Override
 	public void Delete(long key) throws KeyDoesntExistException {
 		int index = Find_index(key);
-		if (key == -1){
+		if (index == -1) {
 			throw new KeyDoesntExistException(key);
+		} else {
+			table[index] = new HashTableElement(-1, -1);
 		}
-		table[index] = new HashTableElement(-1, -1);
 	}
 	
 	/**
