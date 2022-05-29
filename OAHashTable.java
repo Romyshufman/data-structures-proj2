@@ -18,14 +18,19 @@ public abstract class OAHashTable implements IHashTable {
 		return table[result];
 	}
 
+	/**
+	 *
+	 * @param key - the key we want to find in the table
+	 * @return the index where the key is placed, -1 if we didn't find it
+	 */
 	public int Find_index(long key) {
 		int i=0;
 		while(i<table.length){
 			int index = Hash(key, i);
-			if (table[index]==(null)){
+			if (table[index]==(null)){ //we arrived to null
 				return -1;
 			}
-			else if (table[index].GetKey()==key) {
+			else if (table[index].GetKey()==key) { //we found the key
 				return index;
 			}
 			else{
@@ -37,15 +42,15 @@ public abstract class OAHashTable implements IHashTable {
 	
 	@Override
 	public void Insert(HashTableElement hte) throws TableIsFullException,KeyAlreadyExistsException {
-		if (this.Find(hte.GetKey()) != null){
+		if (this.Find(hte.GetKey()) != null){ //the key is already exist
 			throw new KeyAlreadyExistsException(hte);
 		}
 		else {
 			int i = 0;
-			boolean inPlace = false;
+			boolean inPlace = false; //in place = true iff we inserted hte to the table
 			while(i<table.length && ! inPlace){
 				int index = Hash(hte.GetKey(), i);
-				if (table[index] == null  || table[index].GetKey()<0) {
+				if (table[index] == null  || table[index].GetKey()<0) { //the place is empty- null or deleted
 					table[index] = hte;
 					inPlace = true;
 				}
@@ -60,10 +65,10 @@ public abstract class OAHashTable implements IHashTable {
 	@Override
 	public void Delete(long key) throws KeyDoesntExistException {
 		int index = Find_index(key);
-		if (index == -1) {
+		if (index == -1) { //the index doesn't exist
 			throw new KeyDoesntExistException(key);
 		} else {
-			table[index] = new HashTableElement(-1, -1);
+			table[index] = new HashTableElement(-1, -1); //change index to "deleted"
 		}
 	}
 	

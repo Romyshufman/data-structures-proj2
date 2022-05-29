@@ -8,14 +8,16 @@ public class test {
         q4(9500018);
         System.out.println("n is not close to 1");
         q4(5000009);
+        //q3_1();
+        //q3_2();
     }
 
     public static void q3_1(){
         IHashTable table = new DoubleHashTable(6571, 6571);
         int count = 0;
         for (int i = 0; i <= 6571; i++) {
-            //long key= (long) Math.pow(i, 2);
-            long key = (long) (Math.pow(-1,i)*(Math.pow(i, 2)));
+            long key= (long) Math.pow(i, 2);
+            //long key = (long) (Math.pow(-1,i)*(Math.pow(i, 2)));
             long final_key=  ((key%6571)+6571)%6571;
             HashTableElement elem = new HashTableElement(final_key, i);
             try {
@@ -33,7 +35,7 @@ public class test {
         Random rand = new Random();
         for (int i=0; i<100; i++) {
             System.out.println("round number:"+ i);
-            QPHashTable qp = new QPHashTable(6571, 1000000007);
+            AQPHashTable qp = new AQPHashTable(6571, 1000000007);
             for (int j=0; j<6571; j++){
                 int b = rand.nextInt(100);
                 try {
