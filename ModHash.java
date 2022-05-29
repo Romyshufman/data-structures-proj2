@@ -16,7 +16,6 @@ public class ModHash {
 	}
 	
 	public static ModHash GetFunc(int m, long p){
-		Random rand= new Random();
 		long a= ThreadLocalRandom.current().nextLong(1, p);
 		long b=  ThreadLocalRandom.current().nextLong(0, p);
 		return new ModHash(a, b, m, p);
