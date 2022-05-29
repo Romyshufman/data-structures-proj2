@@ -16,19 +16,19 @@ public class ModHash {
 	}
 	
 	public static ModHash GetFunc(int m, long p){
-		long a= ThreadLocalRandom.current().nextLong(1, p);
-		long b=  ThreadLocalRandom.current().nextLong(0, p);
+		long a= ThreadLocalRandom.current().nextLong(1, p); // 1<=a<p
+		long b=  ThreadLocalRandom.current().nextLong(0, p); // 0<=b<p
 		return new ModHash(a, b, m, p);
 	}
 	
 	public int Hash(long key) {
 		long result = ((a*key+b)%p)%m;
-		if (result<0){
+		if (result<0){  // this line makes sure that result >= 0
 			result=result+m;
 		}
 		return (int)result;
 	}
-	public int secHash(long key) {
+	public int secHash(long key) { // specific hash for double hash->if key >=0 : will never return 0
 		int result = (int) (((a*key+b)%p)%(m-1)+1);
 		if (result<0){
 			result=result+m;
