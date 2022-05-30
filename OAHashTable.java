@@ -1,4 +1,10 @@
-
+/**name1: Romy Shufman
+ id1: 209365238
+ username1: romyshufman
+ name2: Noa Hadash
+ id2: 316279264
+ username2: noahadash
+ */
 public abstract class OAHashTable implements IHashTable {
 	
 	private HashTableElement [] table;
