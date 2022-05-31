@@ -21,10 +21,10 @@ public class LPHashTable extends OAHashTable {
 
 	@Override
 	public int Hash(long x, int i) {
-		int result = (int) ((this.modHash.Hash(x)+i)%m);
+		long result = (this.modHash.Hash(x)+i)%m;
 		if (result<0) //this line makes sure result>=0
 			result+=m;
-		return result;
+		return (int)result;
 	}
 	
 }

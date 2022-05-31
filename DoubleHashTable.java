@@ -20,9 +20,9 @@ public class DoubleHashTable extends OAHashTable {
 	
 	@Override
 	public int Hash(long x, int i) { //hash(x,i)=(modhash1(x)+i*modhash2(x))mod m
-		int result  = (int) ((modHash1.Hash(x)+i*modHash2.secHash(x))%m);
+		long result  =  (modHash1.Hash(x)+i*modHash2.secHash(x))%m;
 		if (result<0)      //this line makes sure we result>=0
 			result+=m;
-		return result;
+		return (int) result;
 	}
 }

@@ -35,11 +35,11 @@ public class ModHash {
 		return (int)result;
 	}
 	public int secHash(long key) { // specific hash for double hash->if key >=0 : will never return 0
-		int result = (int) (((a*key+b)%p)%(m-1)+1);
+		long result = ((a*key+b)%p)%(m-1)+1;
 		if (result<0){
 			result=result+m;
 		}
-		return result;
+		return (int) result;
 
 	}
 }
