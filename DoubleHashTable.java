@@ -15,14 +15,17 @@ public class DoubleHashTable extends OAHashTable {
 	public DoubleHashTable(int m, long p) {
 		super(m);
 		this.modHash1=ModHash.GetFunc(m,p);
-		this.modHash2=ModHash.GetFunc(m,p);
+		this.modHash2=ModHash.GetFunc(m-1,p);
 	}
-	
+
+	/**
+	 *
+	 * @return h(k,i)=(h1'(k)+i*h2'(k)) mod m
+	 */
+
 	@Override
-	public int Hash(long x, int i) { //hash(x,i)=(modhash1(x)+i*modhash2(x))mod m
-		long result  =  (modHash1.Hash(x)+i*modHash2.secHash(x))%m;
-		if (result<0)      //this line makes sure we result>=0
-			result+=m;
-		return (int) result;
+	public int Hash(long x, int i) {
+		long result  =  (modHash1.Hash(x)+ (long) i *(modHash2.Hash(x)+1))%m; //jumps will never be zero
+		return (int) (result < 0 ? result+m : result); //makes sure result>=0
 	}
 }

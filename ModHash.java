@@ -18,7 +18,7 @@ public class ModHash {
 		this.a = a;
 		this.b = b;
 		this.p = p;
-		this.m=m;
+		this.m = m;
 	}
 	
 	public static ModHash GetFunc(int m, long p){
@@ -28,18 +28,7 @@ public class ModHash {
 	}
 	
 	public int Hash(long key) {
-		long result = ((a*key+b)%p)%m;
-		if (result<0){  // this line makes sure that result >= 0
-			result=result+m;
-		}
-		return (int)result;
+		return (int) ((a*key+b)%p)%m;
 	}
-	public int secHash(long key) { // specific hash for double hash->if key >=0 : will never return 0
-		long result = ((a*key+b)%p)%(m-1)+1;
-		if (result<0){
-			result=result+m;
-		}
-		return (int) result;
 
-	}
 }

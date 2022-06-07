@@ -5,26 +5,11 @@ import java.util.Random;
 public class test {
 
     public static void main (String[] args) {
-        //q4_check_QP();
-        //check all- dont touch
-        //q3_1_Q1();
-        //q3_1_Q2();
-        //q3_2();
-        System.out.println("n is not close to 1");
-        q4(5000009);
+        int m= 10000019;
+        //System.out.println("n is not close to 1");
+        //q4(m/2);
         System.out.println("n is almost 1 ");
-        q4(9500018);
-        //q5();
-        //try {
-          //  ex4_1();
-        //} catch (Exception e) {
-          //  e.printStackTrace();
-        //}
-        //try {
-          //  ex4_2();
-        //} catch (Exception e) {
-         //   e.printStackTrace();
-        //}
+        q4(19*m/20);
     }
 
     public static void q3_1_Q1(){
@@ -102,21 +87,25 @@ public class test {
         long p=1000000007;
         IHashTable[] t ={new LPHashTable(m,p),new QPHashTable(m,p), new AQPHashTable(m,p),new DoubleHashTable(m,p)};
         Random rand = new Random();
-        int [] arr= new int[n];
+        HashTableElement[] arr= new HashTableElement[n];
         for(int i=0; i<n; i++) {
             int b = rand.nextInt(100);
             int a = 100 * i + b;
-            arr[i]=a;
+            arr[i]=new HashTableElement(a,a);
         }
+        long startTime;
+        long endTime;
+        double totalTime;
+
         for(int j=0; j<4; j++){
             if(j==0) {System.out.println("LP");}
             else if(j==1) {System.out.println("QP");}
             else if(j==2) {System.out.println("AQP");}
             else if(j==3) {System.out.println("DOUBLE");}
-            long startTime = System.nanoTime();
+            startTime = System.nanoTime();
             for(int i=0; i<n; i++){
                 try {
-                    t[j].Insert(new HashTableElement(arr[i],i));
+                    t[j].Insert(arr[i]);
                 }
                 catch (IHashTable.TableIsFullException e) {
                     e.printStackTrace();
@@ -124,8 +113,8 @@ public class test {
                     e.printStackTrace();
                 }
             }
-            long endTime = System.nanoTime();
-            double totalTime = (endTime-startTime)*Math.pow(10,-9);
+            endTime = System.nanoTime();
+            totalTime = (endTime-startTime)*Math.pow(10,-9);
             System.out.println("time "+ totalTime);
         }
     }
@@ -159,7 +148,6 @@ public class test {
             System.out.println(j+" "+tot);
         }
     }
-
     public static void ex4_1() throws Exception {
         int m = 10000019;
         long p = 1000000007;
@@ -222,7 +210,6 @@ public class test {
         long endTime   = System.currentTimeMillis();
         return endTime - startTime;
     }
-
     public static void q4_check_QP(){
         IHashTable table = new DoubleHashTable(10000019,1000000007);
         int count = 0;

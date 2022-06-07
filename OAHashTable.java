@@ -48,25 +48,34 @@ public abstract class OAHashTable implements IHashTable {
 	
 	@Override
 	public void Insert(HashTableElement hte) throws TableIsFullException,KeyAlreadyExistsException {
-		if (this.Find(hte.GetKey()) != null){ //the key is already exist
-			throw new KeyAlreadyExistsException(hte);
-		}
-		else {
-			int i = 0;
-			boolean inPlace = false; //in place = true iff we inserted hte to the table
-			while(i<table.length && ! inPlace){
-				int index = Hash(hte.GetKey(), i);
-				if (table[index] == null  || table[index].GetKey()<0) { //the place is empty- null or deleted
-					table[index] = hte;
-					inPlace = true;
+		boolean isInserted=false; //True iff key was inserted during the function
+		for(int i=0; i<m ;i++){
+			int index = this.Hash(hte.GetKey(), i);
+
+			if (table[index]==null) { //key doesnt exists
+				table[index] = hte;
+				isInserted=true;
+				break;
+			}
+			else if(table[index].GetKey()<0) { //index is deleted
+				if (this.Find(hte.GetKey()) != null) { //key already exists
+					throw new KeyAlreadyExistsException(hte);
 				}
-				i++;
+				else { //key doesnt exists
+					table[index] = hte;
+					isInserted=true;
+					break;
+				}
 			}
-			if (i==table.length && !inPlace){
-				throw new TableIsFullException(hte);
+			else if (table[index].GetKey()==hte.GetKey()){ //table[index] == hte
+				throw new KeyAlreadyExistsException(hte);
 			}
+		}
+		if(isInserted==false) { //we moved on all the table and didnt inserted hte
+			throw new TableIsFullException(hte);
 		}
 	}
+
 	
 	@Override
 	public void Delete(long key) throws KeyDoesntExistException {
