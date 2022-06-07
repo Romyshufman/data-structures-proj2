@@ -71,7 +71,7 @@ public abstract class OAHashTable implements IHashTable {
 	@Override
 	public void Delete(long key) throws KeyDoesntExistException {
 		int index = Find_index(key);
-		if (index == -1) { //the index doesn't exist
+		if (index == -1) { //the index  doesn't exist
 			throw new KeyDoesntExistException(key);
 		} else {
 			table[index] = new HashTableElement(-1, -1); //change index to "deleted"
