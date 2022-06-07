@@ -25,5 +25,6 @@ public class AQPHashTable extends OAHashTable {
 		long result= (modHash.Hash(x) + (long) (i % 2 == 0 ? 1 : -1) * i*i) % m; //check if (-1)^i==1 or -1
 		return (int) (result < 0 ? result+m : result); //makes sure result>=0
 
+
 	}
 }
