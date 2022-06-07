@@ -1,10 +1,11 @@
 import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class test {
 
-    public static void main (String[] args) {
+    public static void main (String[] args) throws IHashTable.KeyAlreadyExistsException, IHashTable.TableIsFullException{
         int m= 10000019;
         //System.out.println("n is not close to 1");
         //q4(m/2);
@@ -82,42 +83,54 @@ public class test {
         }
     }
 
-    public static void q4(int n){
+    public static void q4(int n) throws IHashTable.KeyAlreadyExistsException, IHashTable.TableIsFullException {
         int m=10000019;
         long p=1000000007;
-        IHashTable[] t ={new LPHashTable(m,p),new QPHashTable(m,p), new AQPHashTable(m,p),new DoubleHashTable(m,p)};
+        LPHashTable lp= new LPHashTable(m,p);
+        QPHashTable qp = new QPHashTable(m,p);
+        AQPHashTable aqp =new AQPHashTable(m,p);
+        DoubleHashTable d= new DoubleHashTable(m,p);
         Random rand = new Random();
-        HashTableElement[] arr= new HashTableElement[n];
+        List<HashTableElement> arr = new ArrayList<>(n);
         for(int i=0; i<n; i++) {
             int b = rand.nextInt(100);
             int a = 100 * i + b;
-            arr[i]=new HashTableElement(a,a);
+            arr.add(new HashTableElement(a,a));
         }
-        long startTime;
-        long endTime;
-        double totalTime;
 
-        for(int j=0; j<4; j++){
-            if(j==0) {System.out.println("LP");}
-            else if(j==1) {System.out.println("QP");}
-            else if(j==2) {System.out.println("AQP");}
-            else if(j==3) {System.out.println("DOUBLE");}
-            startTime = System.nanoTime();
-            for(int i=0; i<n; i++){
-                try {
-                    t[j].Insert(arr[i]);
-                }
-                catch (IHashTable.TableIsFullException e) {
-                    e.printStackTrace();
-                } catch (IHashTable.KeyAlreadyExistsException e) {
-                    e.printStackTrace();
-                }
-            }
-            endTime = System.nanoTime();
-            totalTime = (endTime-startTime)*Math.pow(10,-9);
-            System.out.println("time "+ totalTime);
+        long startTime1 = System.nanoTime();
+        for(HashTableElement h: arr){
+            lp.Insert(h);
         }
+        long endTime1 = System.nanoTime();
+        float totalTime1 = (float) ((endTime1-startTime1)*Math.pow(10,-9));
+        System.out.println("lp "+ totalTime1);
+
+        //long startTime2 = System.nanoTime();
+        //for(HashTableElement h: arr){
+          //  qp.Insert(h);
+        //}
+        //long endTime2= System.nanoTime();
+        //float totalTime2 = (float) ((endTime2-startTime2)*Math.pow(10,-9));
+        //System.out.println("qp "+ totalTime1);
+
+        long startTime3 = System.nanoTime();
+        for(HashTableElement h: arr){
+            aqp.Insert(h);
+        }
+        long endTime3 = System.nanoTime();
+        float totalTime3 = (float) ((endTime3-startTime3)*Math.pow(10,-9));
+        System.out.println("aqp "+ totalTime3);
+
+        long startTime4 = System.nanoTime();
+        for(HashTableElement h: arr){
+            d.Insert(h);
+        }
+        long endTime4 = System.nanoTime();
+        float totalTime4 = (float) ((endTime4-startTime4)*Math.pow(10,-9));
+        System.out.println("doublt "+ totalTime4);
     }
+
     public static void q5(){
         IHashTable doublehash = new DoubleHashTable(10000019, 1000000007);
         Random rand = new Random();
