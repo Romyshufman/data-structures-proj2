@@ -5,12 +5,15 @@ import java.util.Random;
 
 public class test {
 
-    public static void main (String[] args) throws IHashTable.KeyAlreadyExistsException, IHashTable.TableIsFullException{
+    public static void main (String[] args) throws IHashTable.TableIsFullException, IHashTable.KeyAlreadyExistsException {
         int m= 10000019;
         //System.out.println("n is not close to 1");
         //q4(m/2);
-        System.out.println("n is almost 1 ");
-        q4(19*m/20);
+        //System.out.println("n is almost 1 ");
+        //q4(19*m/20);
+        q4_AQP(19*m/20);
+
+
     }
 
     public static void q3_1_Q1(){
@@ -106,13 +109,13 @@ public class test {
         float totalTime1 = (float) ((endTime1-startTime1)*Math.pow(10,-9));
         System.out.println("lp "+ totalTime1);
 
-        //long startTime2 = System.nanoTime();
-        //for(HashTableElement h: arr){
-          //  qp.Insert(h);
-        //}
-        //long endTime2= System.nanoTime();
-        //float totalTime2 = (float) ((endTime2-startTime2)*Math.pow(10,-9));
-        //System.out.println("qp "+ totalTime1);
+        long startTime2 = System.nanoTime();
+        for(HashTableElement h: arr){
+            qp.Insert(h);
+        }
+        long endTime2= System.nanoTime();
+        float totalTime2 = (float) ((endTime2-startTime2)*Math.pow(10,-9));
+        System.out.println("qp "+ totalTime2);
 
         long startTime3 = System.nanoTime();
         for(HashTableElement h: arr){
@@ -240,6 +243,94 @@ public class test {
             }
         }
         System.out.println(count);
+    }
+
+    public static void q4_LP(int n) throws IHashTable.KeyAlreadyExistsException, IHashTable.TableIsFullException {
+        int m=10000019;
+        long p=1000000007;
+        LPHashTable lp= new LPHashTable(m,p);
+        Random rand = new Random();
+        List<HashTableElement> arr = new ArrayList<>(n);
+        for(int i=0; i<n; i++) {
+            int b = rand.nextInt(100);
+            int a = 100 * i + b;
+            arr.add(new HashTableElement(a,a));
+        }
+
+        long startTime1 = System.nanoTime();
+        for(HashTableElement h: arr){
+            lp.Insert(h);
+        }
+        long endTime1 = System.nanoTime();
+        float totalTime1 = (float) ((endTime1-startTime1)*Math.pow(10,-9));
+        System.out.println("lp "+ totalTime1);
+    }
+    public static void q4_QP(int n) throws IHashTable.KeyAlreadyExistsException, IHashTable.TableIsFullException {
+        int m=10000019;
+        long p=1000000007;
+        QPHashTable qp= new QPHashTable(m,p);
+        Random rand = new Random();
+        List<HashTableElement> arr = new ArrayList<>(n);
+        for(int i=0; i<n; i++) {
+            int b = rand.nextInt(100);
+            int a = 100 * i + b;
+            arr.add(new HashTableElement(a,a));
+        }
+
+        long startTime1 = System.nanoTime();
+        for(HashTableElement h: arr){
+            try{
+                qp.Insert(h);
+                } catch (IHashTable.TableIsFullException e) {
+                e.printStackTrace();
+            } catch (IHashTable.KeyAlreadyExistsException e) {
+                e.printStackTrace();
+            }
+        }
+        long endTime1 = System.nanoTime();
+        float totalTime1 = (float) ((endTime1-startTime1)*Math.pow(10,-9));
+        System.out.println("qp "+ totalTime1);
+    }
+
+    public static void q4_AQP(int n) throws IHashTable.KeyAlreadyExistsException, IHashTable.TableIsFullException {
+        int m=10000019;
+        long p=1000000007;
+        AQPHashTable aqp= new AQPHashTable(m,p);
+        Random rand = new Random();
+        List<HashTableElement> arr = new ArrayList<>(n);
+        for(int i=0; i<n; i++) {
+            int b = rand.nextInt(100);
+            int a = 100 * i + b;
+            arr.add(new HashTableElement(a,a));
+        }
+
+        long startTime1 = System.nanoTime();
+        for(HashTableElement h: arr){
+            aqp.Insert(h);
+        }
+        long endTime1 = System.nanoTime();
+        float totalTime1 = (float) ((endTime1-startTime1)*Math.pow(10,-9));
+        System.out.println("aqp "+ totalTime1);
+    }
+    public static void q4_DOUBLE(int n) throws IHashTable.KeyAlreadyExistsException, IHashTable.TableIsFullException {
+        int m=10000019;
+        long p=1000000007;
+        DoubleHashTable d= new DoubleHashTable(m,p);
+        Random rand = new Random();
+        List<HashTableElement> arr = new ArrayList<>(n);
+        for(int i=0; i<n; i++) {
+            int b = rand.nextInt(100);
+            int a = 100 * i + b;
+            arr.add(new HashTableElement(a,a));
+        }
+
+        long startTime1 = System.nanoTime();
+        for(HashTableElement h: arr){
+            d.Insert(h);
+        }
+        long endTime1 = System.nanoTime();
+        float totalTime1 = (float) ((endTime1-startTime1)*Math.pow(10,-9));
+        System.out.println("DOUBLE "+ totalTime1);
     }
 }
 

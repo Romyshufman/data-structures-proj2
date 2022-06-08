@@ -45,7 +45,8 @@ public abstract class OAHashTable implements IHashTable {
 		}
 		return -1;
 	}
-	
+
+
 	@Override
 	public void Insert(HashTableElement hte) throws TableIsFullException,KeyAlreadyExistsException {
 		boolean isInserted=false; //True iff key was inserted during the function
