@@ -22,7 +22,7 @@ public class AQPHashTable extends OAHashTable {
 
 	@Override
 	public int Hash(long x, int i) {
-		long result= (modHash.Hash(x) + (long) (i % 2 == 0 ? 1 : -1) * i*i) % m; //check if (-1)^i==1 or -1
+		long result= (long) ((modHash.Hash(x) + (i % 2 == 0 ? 1 : -1) * Math.pow(i,2)) % m); //check if (-1)^i==1 or -1
 		return (int) (result < 0 ? result+m : result); //makes sure result>=0
 
 

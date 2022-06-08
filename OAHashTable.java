@@ -30,17 +30,13 @@ public abstract class OAHashTable implements IHashTable {
 	 * @return the index where the key is placed, -1 if we didn't find it
 	 */
 	public int Find_index(long key) {
-		int i=0;
-		while(i<table.length){
+		for(int i=0; i<m ;i++){
 			int index = Hash(key, i);
 			if (table[index]==(null)){ //we arrived to null
 				return -1;
 			}
 			else if (table[index].GetKey()==key) { //we found the key
 				return index;
-			}
-			else{
-				i++;
 			}
 		}
 		return -1;
@@ -52,7 +48,6 @@ public abstract class OAHashTable implements IHashTable {
 		boolean isInserted=false; //True iff key was inserted during the function
 		for(int i=0; i<m ;i++){
 			int index = this.Hash(hte.GetKey(), i);
-
 			if (table[index]==null) { //key doesnt exists
 				table[index] = hte;
 				isInserted=true;

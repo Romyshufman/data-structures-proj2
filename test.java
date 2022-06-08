@@ -5,13 +5,17 @@ import java.util.Random;
 
 public class test {
 
-    public static void main (String[] args) throws IHashTable.TableIsFullException, IHashTable.KeyAlreadyExistsException {
+    public static void main (String[] args) throws Exception {
         int m= 10000019;
         //System.out.println("n is not close to 1");
         //q4(m/2);
         //System.out.println("n is almost 1 ");
         //q4(19*m/20);
-        q4_AQP(19*m/20);
+        //q4_AQP(19*m/20);
+        //q3_1_Q1();
+        //q3_1_Q2();
+        //q3_2();
+        //ex5();
 
 
     }
@@ -331,6 +335,55 @@ public class test {
         long endTime1 = System.nanoTime();
         float totalTime1 = (float) ((endTime1-startTime1)*Math.pow(10,-9));
         System.out.println("DOUBLE "+ totalTime1);
+    }
+    public static void ex5() throws Exception {
+        int m = 10000019;
+        long p = 1000000007;
+        int n = Math.floorDiv(m, 2);
+        long a;
+        long b;
+        Random rand = new Random();
+        DoubleHashTable table = new DoubleHashTable(m, p);
+        long insertStartTime;
+        long insertEndTime;
+        long deleteStartTime;
+        long deleteEndTime;
+
+        for (int j = 0; j < 6; j++){
+            long insertSumTime = 0;
+            long deleteSumTime = 0;
+            // initialized here on purpose for each iteration
+            ArrayList<Long> keys = new ArrayList<Long>();
+            for (int i = 0; i < n; i++){
+                b = (long) rand.nextInt(100);
+                a = 100*(long)i + b;
+                keys.add(i, a);
+                HashTableElement element = new HashTableElement(a, a);
+                try {
+                    insertStartTime = System.currentTimeMillis();
+                    table.Insert(element);
+                    insertEndTime = System.currentTimeMillis();
+                    insertSumTime += (insertEndTime - insertStartTime);
+                }
+                catch (IHashTable.KeyAlreadyExistsException ex) {
+                    System.out.println("key already exists, i: " + i + ", a: " + a + ", j:" + j);
+                } catch (IHashTable.TableIsFullException ex) {
+                    System.out.println("table is full, i: " + i + ", a: " + a + ", j:" + j);
+                }
+            }
+            for (int k = 0; k < n; k++){
+                long keyToDelete = keys.get(k);
+                try {
+                    deleteStartTime = System.currentTimeMillis();
+                    table.Delete(keyToDelete);
+                    deleteEndTime = System.currentTimeMillis();
+                    deleteSumTime += (deleteEndTime - deleteStartTime);
+                } catch (IHashTable.KeyDoesntExistException ex) {
+                    System.out.println("key doesnt exists: " + keys.get(k));
+                }
+            }
+            System.out.println("iteration " + j + " Time: " + (deleteSumTime + insertSumTime));
+        }
     }
 }
 
